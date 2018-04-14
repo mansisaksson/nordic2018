@@ -38,7 +38,9 @@ public class UDPManager : MonoBehaviour {
     void Update()
     {
         // receive
-        string message = Interlocked.Exchange(ref messageReceived, null);
+        //string message = Interlocked.Exchange(ref messageReceived, null);
+        string message = messageReceived;
+        messageReceived = null;
         if(message != null)
         {
             DeserializeJsonMessage(message);
@@ -66,7 +68,12 @@ public class UDPManager : MonoBehaviour {
 
     void DeserializeJsonMessage(string message)
     {
-        JsonPackage[] packages = JsonUtility.FromJson<JsonPackages>(message).jsonPackages;
+        JsonPackages jsonMessage = JsonUtility.FromJson<JsonPackages>(message);
+        if(Player.gravityId < jsonMessage.gravityDirection)
+        {
+            Player.gravityId = jsonMessage.gravityDirection;
+        }
+        JsonPackage[] packages = jsonMessage.jsonPackages;
         for (int i = 0; i < packages.Length; i++)
         {
             UDPBehaviour obj;
@@ -120,7 +127,8 @@ public class UDPManager : MonoBehaviour {
     // public
     // public string IP = "127.0.0.1"; default local
     [SerializeField]
-    public int port = 8051; // define > init
+    public static int port = 1337;
+    public static string IP = "192.168.1.164";
 
     private static UDPManager _udpManager;
     public static UDPManager instance
@@ -132,37 +140,6 @@ public class UDPManager : MonoBehaviour {
             return _udpManager;
         }
     }
-
- 
-
-    // OnGUI
- /*   void OnGUI()
-    {
-        Rect rectObj = new Rect(40, 10, 200, 400);
-        GUIStyle style = new GUIStyle();
-        style.alignment = TextAnchor.UpperLeft;
-        GUI.Box(rectObj, "# UDPReceive\n127.0.0.1 " + port + " #\n"
-                    + "shell> nc -u 127.0.0.1 : " + port + " \n"
-                    + "\nLast Packet: \n" + lastReceivedUDPPacket
-                    + "\n\nAll Messages: \n" + allReceivedUDPPackets
-                , style);
-
-        rectObj = new Rect(40, 380, 200, 400);
-        style = new GUIStyle();
-        style.alignment = TextAnchor.UpperLeft;
-        GUI.Box(rectObj, "# UDPSend-Data\n127.0.0.1 " + port + " #\n"
-                    + "shell> nc -lu 127.0.0.1  " + port + " \n"
-                , style);
-
-        // ------------------------
-        // send it
-        // ------------------------
-        strMessage = GUI.TextField(new Rect(40, 420, 140, 20), strMessage);
-        if (GUI.Button(new Rect(190, 420, 40, 20), "send"))
-        {
-            sendString(strMessage + "\n");
-        }
-    }*/
 
     // init
     private void initUDP()
@@ -254,13 +231,9 @@ public class UDPManager : MonoBehaviour {
 
 
     ////////////////////////////////////////
-
-
-    private static int localPort;
+    
 
     // prefs
-    [SerializeField]
-    private string IP = "127.0.0.1";  // define in init
 
     // "connection" things
     IPEndPoint remoteEndPoint;

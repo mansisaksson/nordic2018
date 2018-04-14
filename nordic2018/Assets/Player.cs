@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Player : UDPBehaviour
 {
+    public static int gravityId = 1;
     public Rigidbody rb;
     public float gravityDirection = 1;
 
@@ -29,7 +30,8 @@ public class Player : UDPBehaviour
 
             //invert gravity, only if grounded
             if (Input.GetKeyDown("space") && IsGrounded())
-                gravityDirection *= -1;
+                //gravityDirection *= -1;
+                gravityId++;
         }
     }
 
@@ -38,7 +40,7 @@ public class Player : UDPBehaviour
         if (fromExternalSource == false)
         {
 
-            rb.AddForce(0f, (Time.deltaTime * 1000.0f * gravityDirection), 0f);
+            rb.AddForce(0f, (Time.deltaTime * 1000.0f * (gravityId % 2 == 0 ? -1 : 1)), 0f);
         }
     }
 
@@ -54,6 +56,6 @@ public class Player : UDPBehaviour
 
     private bool IsGrounded()
    {
-        return Physics.Raycast(transform.position, Vector3.up * gravityDirection, 0.501f);
+        return Physics.Raycast(transform.position, Vector3.up * (gravityId % 2 == 0 ? -1 : 1) , 0.501f);
    }
 }

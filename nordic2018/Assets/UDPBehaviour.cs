@@ -21,10 +21,12 @@ public class JsonPackages
 {
     public int packetId;
     public JsonPackage[] jsonPackages;
+    public int gravityDirection;
 
     public JsonPackages(JsonPackage[] packages)
     {
         jsonPackages = packages;
+        gravityDirection = Player.gravityId;
     }
 
 }
