@@ -13,7 +13,7 @@ public class UDPManager : MonoBehaviour {
     Dictionary<string, UDPBehaviour> TypeToPrefab = new Dictionary<string, UDPBehaviour>();
     
 
-    Dictionary<string, UDPBehaviour> IdToObject = new Dictionary<string, UDPBehaviour>();
+    Dictionary<int, UDPBehaviour> IdToObject = new Dictionary<int, UDPBehaviour>();
     //Dictionary<UDPBehaviour, string> ObjectToId = new Dictionary<UDPBehaviour, string>();
 
     // start from unity3d
@@ -27,9 +27,9 @@ public class UDPManager : MonoBehaviour {
         UDPBehaviour[] objects = FindObjectsOfType<UDPBehaviour>();
         for (int i = 0; i < objects.Length; i++)
         {
-            IdToObject.Add(objects[i].guid.ToString(), objects[i]);
+            IdToObject.Add(objects[i].id, objects[i]);
            // ObjectToId.Add(objects[i], objects[i].guid.ToString());
-            print("id added " + objects[i].guid.ToString());
+            print("id added " + objects[i].id.ToString());
         }
 
         initUDP();
@@ -80,10 +80,18 @@ public class UDPManager : MonoBehaviour {
             else
             {
                 // create
-                UDPBehaviour newObj = Instantiate(TypeToPrefab[packages[i].type]);
-                newObj.fromExternalSource = true;
-                IdToObject.Add(packages[i].id, newObj);
-                newObj.Deserialize(packages[i]);
+                UDPBehaviour newObj = null;
+                if(TypeToPrefab.TryGetValue(packages[i].type, out newObj))
+                {
+                    newObj = Instantiate(newObj);
+                    newObj.fromExternalSource = true;
+                    IdToObject.Add(packages[i].id, newObj);
+                    newObj.Deserialize(packages[i]);
+                }
+                else
+                {
+                    Debug.LogError("can't find prefab: " + packages[i].type);
+                }
             }
         }
     }

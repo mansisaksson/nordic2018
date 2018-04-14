@@ -27,15 +27,6 @@ public class Player : UDPBehaviour
             //invert gravity, only if grounded
             if (Input.GetKeyDown("space") && IsGrounded())
                 gravityDirection *= -1;
-
-
-
-            var fakeMimicObj = Serialize();
-            fakeMimicObj.id = "1234512345";
-            fakeMimicObj.positionX += 4;
-            //fakeMimicObj.positionY -= 3;
-            JsonPackage[] packages = new JsonPackage[] { fakeMimicObj };
-            UDPManager.instance.sendString(JsonUtility.ToJson(new JsonPackages(packages)));
         }
     }
 

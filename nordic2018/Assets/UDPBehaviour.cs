@@ -9,7 +9,7 @@ public class JsonPackage
     public float positionX;
     public float positionY;
     public float positionZ;
-    public string id;
+    public int id;
     public string type;
     public float scaleX;
     public float scaleY;
@@ -31,12 +31,13 @@ public class JsonPackages
 
 public class UDPBehaviour : MonoBehaviour {
 
+    public static int IDCOUNTER = 1;
     public bool fromExternalSource = false;
-    public Guid guid;
+    public int id;
 
     public void Awake() // don't overload this
     {
-        guid = System.Guid.NewGuid();
+        id = IDCOUNTER++;
     }
 
 
@@ -53,6 +54,8 @@ public class UDPBehaviour : MonoBehaviour {
         newScale.y = message.scaleZ;
         newScale.z = message.scaleX;
         transform.localScale = newScale;
+
+        id = message.id;
     }
 
     public JsonPackage Serialize()
@@ -62,7 +65,7 @@ public class UDPBehaviour : MonoBehaviour {
             positionX = transform.position.x,
             positionY = transform.position.y,
             positionZ = transform.position.z,
-            id = guid.ToString(),
+            id = id,
             type = gameObject.name,
             scaleX = transform.localScale.x,
             scaleY = transform.localScale.y,
