@@ -8,8 +8,11 @@ public class Player : UDPBehaviour
     public Rigidbody rb;
     public float gravityDirection = 1;
 
+    public Vector3 startPos;
+
     // Use this for initialization
     void Start () {
+        startPos = transform.position;
         rb = GetComponent<Rigidbody>();
         Physics.gravity = new Vector3(0, 0, 0);
     }
@@ -35,7 +38,7 @@ public class Player : UDPBehaviour
         if (fromExternalSource == false)
         {
 
-            rb.AddForce(0f, (Time.deltaTime * 500.0f * gravityDirection), 0f);
+            rb.AddForce(0f, (Time.deltaTime * 1000.0f * gravityDirection), 0f);
         }
     }
 
@@ -43,8 +46,9 @@ public class Player : UDPBehaviour
     {
         if (other.gameObject.name.Contains("Spike"))
         {
-            Debug.Log("collided with \"spike\"");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            //Debug.Log("collided with \"spike\"");
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            transform.position = startPos;
         }
     }
 
