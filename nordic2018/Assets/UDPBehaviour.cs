@@ -41,7 +41,7 @@ public class UDPBehaviour : MonoBehaviour {
         Vector3 newPos = Vector3.zero;
         newPos.x = message.positionX;
         newPos.y = message.positionY;
-        newPos.z = transform.position.z;
+        newPos.z = 0;
         transform.position = newPos;
     }
 
