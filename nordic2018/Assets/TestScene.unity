@@ -23,7 +23,7 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1
+  m_AmbientIntensity: 0.8
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
@@ -151,12 +151,16 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4379386372519236, guid: a281c6f1b0f0b8b42b35891741909d55, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 114766375769519798, guid: a281c6f1b0f0b8b42b35891741909d55,
         type: 2}
       propertyPath: typeName
-      value: testCubePlayer
+      value: Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 4379386372519236, guid: a281c6f1b0f0b8b42b35891741909d55, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a281c6f1b0f0b8b42b35891741909d55, type: 2}
@@ -174,7 +178,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4101836037441740, guid: 20b88e07071a0554c94a91f905b9874c, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -1.78
+      value: -1.95
       objectReference: {fileID: 0}
     - target: {fileID: 4101836037441740, guid: 20b88e07071a0554c94a91f905b9874c, type: 2}
       propertyPath: m_LocalPosition.z
@@ -182,7 +186,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4101836037441740, guid: 20b88e07071a0554c94a91f905b9874c, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 4101836037441740, guid: 20b88e07071a0554c94a91f905b9874c, type: 2}
       propertyPath: m_LocalRotation.y
@@ -194,7 +198,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4101836037441740, guid: 20b88e07071a0554c94a91f905b9874c, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 4101836037441740, guid: 20b88e07071a0554c94a91f905b9874c, type: 2}
       propertyPath: m_RootOrder
@@ -257,7 +261,11 @@ Prefab:
     - target: {fileID: 114766375769519798, guid: a281c6f1b0f0b8b42b35891741909d55,
         type: 2}
       propertyPath: typeName
-      value: testCubePlayer
+      value: Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 4379386372519236, guid: a281c6f1b0f0b8b42b35891741909d55, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a281c6f1b0f0b8b42b35891741909d55, type: 2}
@@ -417,7 +425,7 @@ Prefab:
     - target: {fileID: 114316592672329278, guid: 320a7ba374cffbc4c86f07cec94e77f7,
         type: 2}
       propertyPath: prefabs.Array.size
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4560464321003838, guid: 320a7ba374cffbc4c86f07cec94e77f7, type: 2}
       propertyPath: m_LocalPosition.x
@@ -449,7 +457,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4560464321003838, guid: 320a7ba374cffbc4c86f07cec94e77f7, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114316592672329278, guid: 320a7ba374cffbc4c86f07cec94e77f7,
         type: 2}
@@ -462,6 +470,18 @@ Prefab:
       propertyPath: prefabs.Array.data[1]
       value: 
       objectReference: {fileID: 114559492824636482, guid: 36577a5df24cda2428771bb23ca35f87,
+        type: 2}
+    - target: {fileID: 114316592672329278, guid: 320a7ba374cffbc4c86f07cec94e77f7,
+        type: 2}
+      propertyPath: prefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 114766375769519798, guid: a281c6f1b0f0b8b42b35891741909d55,
+        type: 2}
+    - target: {fileID: 114316592672329278, guid: 320a7ba374cffbc4c86f07cec94e77f7,
+        type: 2}
+      propertyPath: prefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 114419292962166996, guid: 20b88e07071a0554c94a91f905b9874c,
         type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 320a7ba374cffbc4c86f07cec94e77f7, type: 2}
@@ -716,7 +736,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4379386372519236, guid: a281c6f1b0f0b8b42b35891741909d55, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1797956091318840, guid: a281c6f1b0f0b8b42b35891741909d55, type: 2}
       propertyPath: m_Name
@@ -725,7 +745,11 @@ Prefab:
     - target: {fileID: 114766375769519798, guid: a281c6f1b0f0b8b42b35891741909d55,
         type: 2}
       propertyPath: typeName
-      value: testCubePlayer
+      value: Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 4379386372519236, guid: a281c6f1b0f0b8b42b35891741909d55, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a281c6f1b0f0b8b42b35891741909d55, type: 2}
@@ -756,7 +780,7 @@ Light:
   serializedVersion: 8
   m_Type: 1
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.7
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -788,13 +812,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1457712551}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.36041814, y: -0.24210794, z: 0.10419384, w: 0.89477724}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 44.062, y: -29.896002, z: 0.952}
 --- !u!114 &1583380996 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114520386804693262, guid: 965c9f48e63f4ab43a5cf547ebf8138f,
@@ -889,3 +913,68 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 965c9f48e63f4ab43a5cf547ebf8138f, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1941192558
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1941192560}
+  - component: {fileID: 1941192559}
+  m_Layer: 0
+  m_Name: Directional Light (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!108 &1941192559
+Light:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1941192558}
+  m_Enabled: 1
+  serializedVersion: 8
+  m_Type: 1
+  m_Color: {r: 0.62148577, g: 0.6677306, b: 0.8897059, a: 1}
+  m_Intensity: 0.4
+  m_Range: 10
+  m_SpotAngle: 30
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 2
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 4
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!4 &1941192560
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1941192558}
+  m_LocalRotation: {x: 0.297575, y: 0.10090394, z: 0.19396724, w: 0.9293246}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 30.927002, y: 20.683, z: 29.359001}

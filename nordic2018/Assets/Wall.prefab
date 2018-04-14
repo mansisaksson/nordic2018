@@ -108,3 +108,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fromExternalSource: 0
+  id: 0
+  typeName: Wall
