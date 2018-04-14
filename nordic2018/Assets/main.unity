@@ -220,8 +220,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabs:
   - {fileID: 114559492824636482, guid: 36577a5df24cda2428771bb23ca35f87, type: 2}
-  port: 8051
-  IP: 127.0.0.1
+  port: 1337
+  IP: 192.168.1.164
 --- !u!1 &1569369670
 GameObject:
   m_ObjectHideFlags: 0

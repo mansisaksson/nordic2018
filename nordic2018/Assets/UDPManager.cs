@@ -37,23 +37,26 @@ public class UDPManager : MonoBehaviour {
 
     void Update()
     {
-        List<UDPBehaviour> objects = new List<UDPBehaviour>( FindObjectsOfType<UDPBehaviour>());
-        objects.RemoveAll(x => x.fromExternalSource == true);
-
-        JsonPackage[] packages = new JsonPackage[objects.Count];
-      
-        for(int i = 0; i < packages.Length; i++)
-        {
-            packages[i] = objects[i].Serialize();
-        }
-        
-        sendString(JsonUtility.ToJson(new JsonPackages(packages)));
-
         string message = Interlocked.Exchange(ref messageReceived, null);
         if(message != null)
         {
             DeserializeJsonMessage(message);
         }
+    }
+
+    void FixedUpdate()
+    {
+        List<UDPBehaviour> objects = new List<UDPBehaviour>(FindObjectsOfType<UDPBehaviour>());
+        objects.RemoveAll(x => x.fromExternalSource == true);
+
+        JsonPackage[] packages = new JsonPackage[objects.Count];
+
+        for (int i = 0; i < packages.Length; i++)
+        {
+            packages[i] = objects[i].Serialize();
+        }
+
+        sendString(JsonUtility.ToJson(new JsonPackages(packages)));
     }
 
     void DeserializeJsonMessage(string message)
@@ -210,11 +213,11 @@ public class UDPManager : MonoBehaviour {
             try
             {
                 // Bytes empfangen.
-                IPEndPoint anyIP = new IPEndPoint(IPAddress.Any, 0);
+                IPEndPoint anyIP = new IPEndPoint(IPAddress.Any, port);
                 byte[] data = receiverClient.Receive(ref anyIP);
 
                 // Bytes mit der UTF8-Kodierung in das Textformat kodieren.
-                string text = Encoding.UTF8.GetString(data);
+                string text = Encoding.Default.GetString(data);
                 messageReceived = text;
                 //DeserializeJsonMessage(text);
 
