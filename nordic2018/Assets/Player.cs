@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : UDPBehaviour
 {
     public Rigidbody rb;
-    public float direction = 1;
+    public float gravityDirection = 1;
 
     // Use this for initialization
     void Start () {
@@ -15,17 +15,25 @@ public class Player : UDPBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-        var x = Input.GetAxis("Horizontal") * Time.deltaTime * 10.0f;
 
-        //transform.Translate(x, 0, 0);
+        // movement
+        var x = Input.GetAxis("Horizontal") * Time.deltaTime * 10.0f;
         rb.MovePosition(transform.position + new Vector3(x, 0f, 0f));
 
-        if (Input.GetKeyDown("space"))
-            direction *= -1;
+
+        //invert gravity, only if grounded
+        if (Input.GetKeyDown("space") && IsGrounded())
+            gravityDirection *= -1;
     }
 
     private void FixedUpdate()
     {
-        rb.AddForce(0f, (Time.deltaTime * 500.0f * direction), 0f);
+        
+        rb.AddForce(0f, (Time.deltaTime * 500.0f * gravityDirection), 0f);
     }
+
+   private bool IsGrounded()
+   {
+        return Physics.Raycast(transform.position, Vector3.up * gravityDirection, 1.01f);
+   }
 }
