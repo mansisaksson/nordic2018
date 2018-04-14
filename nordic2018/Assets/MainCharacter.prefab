@@ -173,6 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d92dd2e0f0bd35e43857e75d1d3d7cac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isUDPstatic: 0
   fromExternalSource: 0
   id: 65
   typeName: testCubePlayer

@@ -49,6 +49,8 @@ public class UDPManager : MonoBehaviour {
 
         List<UDPBehaviour> objects = new List<UDPBehaviour>(FindObjectsOfType<UDPBehaviour>());
         objects.RemoveAll(x => x.fromExternalSource == true);
+        int timeModulo = Time.frameCount % 100;
+        objects.RemoveAll(x => x.isUDPstatic &&  timeModulo != x.id % 100);
 
         JsonPackage[] packages = new JsonPackage[objects.Count];
 

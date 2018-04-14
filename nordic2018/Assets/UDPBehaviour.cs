@@ -14,6 +14,7 @@ public class JsonPackage
     public float scaleX;
     public float scaleY;
     public float scaleZ;
+    public float angle;
 }
 
 [Serializable]
@@ -33,6 +34,7 @@ public class JsonPackages
 
 public class UDPBehaviour : MonoBehaviour {
 
+    public bool isUDPstatic = true;
     public static int IDCOUNTER = 1;
     public bool fromExternalSource = false;
     public int id;
@@ -73,6 +75,7 @@ public class UDPBehaviour : MonoBehaviour {
             scaleX = transform.localScale.x,
             scaleY = transform.localScale.y,
             scaleZ = transform.localScale.z,
+            angle = transform.localRotation.x
         };
     }
 }
