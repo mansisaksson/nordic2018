@@ -212,7 +212,7 @@ public class UDPManager : MonoBehaviour {
                 //DeserializeJsonMessage(text);
 
                 // Den abgerufenen Text anzeigen.
-                print(">> " + text);
+              //  print(">> " + text);
 
                 // latest UDPpacket
              //   lastReceivedUDPPacket = text;
