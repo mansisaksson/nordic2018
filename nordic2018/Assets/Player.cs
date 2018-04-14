@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : UDPBehaviour
 {
@@ -52,12 +53,8 @@ public class Player : UDPBehaviour
         if (other.gameObject.name.Contains("Spike"))
         {
             Debug.Log("collided with \"spike\"");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
-    }
-
-    void OnCollisionEnter(Collision col)
-    {
-
     }
 
     private bool IsGrounded()
