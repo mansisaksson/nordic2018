@@ -29,7 +29,6 @@ public class UDPManager : MonoBehaviour {
         {
             IdToObject.Add(objects[i].id, objects[i]);
            // ObjectToId.Add(objects[i], objects[i].guid.ToString());
-            print("id added " + objects[i].id.ToString());
         }
 
         initUDP();
@@ -38,9 +37,9 @@ public class UDPManager : MonoBehaviour {
     void Update()
     {
         // receive
-        //string message = Interlocked.Exchange(ref messageReceived, null);
-        string message = messageReceived;
-        messageReceived = null;
+        string message = Interlocked.Exchange(ref messageReceived, null);
+        //string message = messageReceived;
+        //messageReceived = null;
         if(message != null)
         {
             DeserializeJsonMessage(message);
@@ -57,7 +56,7 @@ public class UDPManager : MonoBehaviour {
         {
             packages[i] = objects[i].Serialize();
         }
-
+        //sendString("");
         sendString(JsonUtility.ToJson(new JsonPackages(packages)));
     }
 
@@ -148,10 +147,6 @@ public class UDPManager : MonoBehaviour {
         print("UDPSend.init()");
         
 
-        // status
-        print("Sending to 127.0.0.1 : " + port);
-        print("Test-Sending to this Port: nc -u 127.0.0.1  " + port + "");
-
 
         // ----------------------------
         // Abhören
@@ -176,10 +171,10 @@ public class UDPManager : MonoBehaviour {
         // ----------------------------
         remoteEndPoint = new IPEndPoint(IPAddress.Parse(IP), port);
         senderClient = new UdpClient();
-
+        senderClient.Client.SendTimeout = 50;
+        senderClient.Client.Blocking = false;
         // status
         print("Sending to " + IP + " : " + port);
-        print("Testing: nc -lu " + IP + " : " + port);
 
 
     }
@@ -197,6 +192,8 @@ public class UDPManager : MonoBehaviour {
     {
 
         receiverClient = new UdpClient(port);
+      //  receiverClient.Client.ReceiveTimeout =1000;
+       // receiverClient.Client.Blocking = false;
         while (true)
         {
 
@@ -245,10 +242,10 @@ public class UDPManager : MonoBehaviour {
         {
             //if (message != "")
             //{
-
             // Daten mit der UTF8-Kodierung in das Binärformat kodieren.
             byte[] data = Encoding.UTF8.GetBytes(message);
 
+            //print("SEND STUFF " + data.Length);
             // Den message zum Remote-Client senden.
             senderClient.Send(data, data.Length, remoteEndPoint);
             //}
