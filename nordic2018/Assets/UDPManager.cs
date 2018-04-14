@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using System.Linq;
 using System;
 using System.Text;
 using System.Net;
@@ -13,7 +14,7 @@ public class UDPManager : MonoBehaviour {
     
 
     Dictionary<string, UDPBehaviour> IdToObject = new Dictionary<string, UDPBehaviour>();
-    Dictionary<UDPBehaviour, string> ObjectToId = new Dictionary<UDPBehaviour, string>();
+    //Dictionary<UDPBehaviour, string> ObjectToId = new Dictionary<UDPBehaviour, string>();
 
     // start from unity3d
     public void Start()
@@ -27,7 +28,7 @@ public class UDPManager : MonoBehaviour {
         for (int i = 0; i < objects.Length; i++)
         {
             IdToObject.Add(objects[i].guid.ToString(), objects[i]);
-            ObjectToId.Add(objects[i], objects[i].guid.ToString());
+           // ObjectToId.Add(objects[i], objects[i].guid.ToString());
             print("id added " + objects[i].guid.ToString());
         }
 
@@ -36,10 +37,12 @@ public class UDPManager : MonoBehaviour {
 
     void Update()
     {
-        UDPBehaviour[] objects = FindObjectsOfType<UDPBehaviour>();
-        JsonPackage[] packages = new JsonPackage[objects.Length];
+        List<UDPBehaviour> objects = new List<UDPBehaviour>( FindObjectsOfType<UDPBehaviour>());
+        objects.RemoveAll(x => x.fromExternalSource == true);
+
+        JsonPackage[] packages = new JsonPackage[objects.Count];
       
-        for(int i = 0; i < objects.Length; i++)
+        for(int i = 0; i < packages.Length; i++)
         {
             packages[i] = objects[i].Serialize();
         }
@@ -65,14 +68,22 @@ public class UDPManager : MonoBehaviour {
                 print("\n " + s);
             }
             UDPBehaviour obj;
-            IdToObject.TryGetValue(packages[i].id, out obj);
+            print("A");
+                        IdToObject.TryGetValue(packages[i].id, out obj);
+            print("B");
             if(obj != null)
             {
+            print("C");
+                // update
                 obj.Deserialize(packages[i]);
             }
             else
             {
+            print("D");
+                // create
                 UDPBehaviour newObj = Instantiate(TypeToPrefab[packages[i].type]);
+                newObj.fromExternalSource = true;
+                IdToObject.Add(packages[i].id, newObj);
                 newObj.Deserialize(packages[i]);
             }
         }

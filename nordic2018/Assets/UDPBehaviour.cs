@@ -27,6 +27,7 @@ public class JsonPackages
 
 public class UDPBehaviour : MonoBehaviour {
 
+    public bool fromExternalSource = false;
     public Guid guid;
 
     public void Awake() // don't overload this
@@ -51,7 +52,7 @@ public class UDPBehaviour : MonoBehaviour {
             positionX = transform.position.x,
             positionY = transform.position.y,
             id = guid.ToString(),
-            type = GetType().ToString()
+            type = gameObject.name
         };
     }
 }
