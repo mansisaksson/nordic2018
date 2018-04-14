@@ -75,7 +75,7 @@ public class UDPBehaviour : MonoBehaviour {
             scaleX = transform.localScale.x,
             scaleY = transform.localScale.y,
             scaleZ = transform.localScale.z,
-            angle = transform.localRotation.x
+            angle = transform.localRotation.eulerAngles.x
         };
     }
 }
