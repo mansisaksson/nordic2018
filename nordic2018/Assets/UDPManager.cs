@@ -8,6 +8,9 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 public class UDPManager : MonoBehaviour {
+    public List<UDPBehaviour> prefabs = new List<UDPBehaviour>();
+    Dictionary<string, UDPBehaviour> TypeToPrefab = new Dictionary<string, UDPBehaviour>();
+    
 
     Dictionary<string, UDPBehaviour> IdToObject = new Dictionary<string, UDPBehaviour>();
     Dictionary<UDPBehaviour, string> ObjectToId = new Dictionary<UDPBehaviour, string>();
@@ -15,12 +18,16 @@ public class UDPManager : MonoBehaviour {
     // start from unity3d
     public void Start()
     {
+        foreach(UDPBehaviour obj in prefabs)
+        {
+            TypeToPrefab.Add(obj.name, obj);
+        }
         _udpManager = this;
         UDPBehaviour[] objects = FindObjectsOfType<UDPBehaviour>();
         for (int i = 0; i < objects.Length; i++)
         {
-            IdToObject.Add(objects[i].GetInstanceID().ToString(), objects[i]);
-            ObjectToId.Add(objects[i], objects[i].GetInstanceID().ToString());
+            IdToObject.Add(objects[i].guid.ToString(), objects[i]);
+            ObjectToId.Add(objects[i], objects[i].guid.ToString());
             print("id added " + objects[i].guid.ToString());
         }
 
@@ -38,6 +45,12 @@ public class UDPManager : MonoBehaviour {
         }
         
         sendString(JsonUtility.ToJson(new JsonPackages(packages)));
+
+        string message = Interlocked.Exchange(ref messageReceived, null);
+        if(message != null)
+        {
+            DeserializeJsonMessage(message);
+        }
     }
 
     void DeserializeJsonMessage(string message)
@@ -47,17 +60,20 @@ public class UDPManager : MonoBehaviour {
         {
             print("id received " + packages[i].id);
             print("ids in map " + IdToObject.Count);
+            foreach(string s in IdToObject.Keys)
+            {
+                print("\n " + s);
+            }
             UDPBehaviour obj;
             IdToObject.TryGetValue(packages[i].id, out obj);
             if(obj != null)
             {
-                // update object
-                print("update");
+                obj.Deserialize(packages[i]);
             }
             else
             {
-                // create object
-                print("create");
+                UDPBehaviour newObj = Instantiate(TypeToPrefab[packages[i].type]);
+                newObj.Deserialize(packages[i]);
             }
         }
     }
@@ -88,10 +104,6 @@ public class UDPManager : MonoBehaviour {
     [SerializeField]
     public int port = 8051; // define > init
 
-    // infos
-    public string lastReceivedUDPPacket = "";
-    public string allReceivedUDPPackets = ""; // clean up this from time to time!
-
     private static UDPManager _udpManager;
     public static UDPManager instance
     {
@@ -106,7 +118,7 @@ public class UDPManager : MonoBehaviour {
  
 
     // OnGUI
-    void OnGUI()
+ /*   void OnGUI()
     {
         Rect rectObj = new Rect(40, 10, 200, 400);
         GUIStyle style = new GUIStyle();
@@ -114,7 +126,7 @@ public class UDPManager : MonoBehaviour {
         GUI.Box(rectObj, "# UDPReceive\n127.0.0.1 " + port + " #\n"
                     + "shell> nc -u 127.0.0.1 : " + port + " \n"
                     + "\nLast Packet: \n" + lastReceivedUDPPacket
-                   /* + "\n\nAll Messages: \n" + allReceivedUDPPackets*/
+                    + "\n\nAll Messages: \n" + allReceivedUDPPackets
                 , style);
 
         rectObj = new Rect(40, 380, 200, 400);
@@ -132,7 +144,7 @@ public class UDPManager : MonoBehaviour {
         {
             sendString(strMessage + "\n");
         }
-    }
+    }*/
 
     // init
     private void initUDP()
@@ -201,16 +213,17 @@ public class UDPManager : MonoBehaviour {
 
                 // Bytes mit der UTF8-Kodierung in das Textformat kodieren.
                 string text = Encoding.UTF8.GetString(data);
-                DeserializeJsonMessage(text);
+                messageReceived = text;
+                //DeserializeJsonMessage(text);
 
                 // Den abgerufenen Text anzeigen.
                 print(">> " + text);
 
                 // latest UDPpacket
-                lastReceivedUDPPacket = text;
+             //   lastReceivedUDPPacket = text;
 
                 // ....
-                allReceivedUDPPackets = allReceivedUDPPackets + text;
+             //   allReceivedUDPPackets = allReceivedUDPPackets + text;
 
             }
             catch (Exception err)
@@ -219,15 +232,7 @@ public class UDPManager : MonoBehaviour {
             }
         }
     }
-
-    // getLatestUDPPacket
-    // cleans up the rest
-    public string getLatestUDPPacket()
-    {
-        allReceivedUDPPackets = "";
-        return lastReceivedUDPPacket;
-    }
-
+    private string messageReceived = null;
 
 
     ////////////////////////////////////////

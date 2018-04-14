@@ -15,12 +15,14 @@ public class JsonPackage
 [Serializable]
 public class JsonPackages
 {
+    public int packetId;
+    public JsonPackage[] jsonPackages;
+
     public JsonPackages(JsonPackage[] packages)
     {
         jsonPackages = packages;
     }
 
-    public JsonPackage[] jsonPackages;
 }
 
 public class UDPBehaviour : MonoBehaviour {
@@ -32,11 +34,16 @@ public class UDPBehaviour : MonoBehaviour {
         guid = System.Guid.NewGuid();
     }
 
-    public void Deserialize(JsonPackage message)
-    {
 
+    public virtual void Deserialize(JsonPackage message)
+    {
+        Vector3 newPos = Vector3.zero;
+        newPos.x = message.positionX;
+        newPos.y = message.positionY;
+        newPos.z = transform.position.z;
+        transform.position = newPos;
     }
-    
+
     public JsonPackage Serialize()
     {
         return new JsonPackage()
