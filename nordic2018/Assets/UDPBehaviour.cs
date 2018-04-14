@@ -8,8 +8,12 @@ public class JsonPackage
 {
     public float positionX;
     public float positionY;
+    public float positionZ;
     public string id;
     public string type;
+    public float scaleX;
+    public float scaleY;
+    public float scaleZ;
 }
 
 [Serializable]
@@ -39,10 +43,16 @@ public class UDPBehaviour : MonoBehaviour {
     public virtual void Deserialize(JsonPackage message)
     {
         Vector3 newPos = Vector3.zero;
-        newPos.x = message.positionX;
-        newPos.y = message.positionY;
-        newPos.z = 0;
+        newPos.x = message.positionY / 100;
+        newPos.y = message.positionZ / 100;
+        newPos.z = message.positionX / -100;
         transform.position = newPos;
+
+        Vector3 newScale = Vector3.zero;
+        newScale.x = message.scaleY;
+        newScale.y = message.scaleZ;
+        newScale.z = message.scaleX;
+        transform.localScale = newScale;
     }
 
     public JsonPackage Serialize()
@@ -51,8 +61,12 @@ public class UDPBehaviour : MonoBehaviour {
         {
             positionX = transform.position.x,
             positionY = transform.position.y,
+            positionZ = transform.position.z,
             id = guid.ToString(),
-            type = gameObject.name
+            type = gameObject.name,
+            scaleX = transform.localScale.x,
+            scaleY = transform.localScale.y,
+            scaleZ = transform.localScale.z,
         };
     }
 }
