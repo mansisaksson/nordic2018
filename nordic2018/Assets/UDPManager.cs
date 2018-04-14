@@ -37,15 +37,15 @@ public class UDPManager : MonoBehaviour {
 
     void Update()
     {
+        // receive
         string message = Interlocked.Exchange(ref messageReceived, null);
         if(message != null)
         {
             DeserializeJsonMessage(message);
         }
-    }
 
-    void FixedUpdate()
-    {
+        // send
+
         List<UDPBehaviour> objects = new List<UDPBehaviour>(FindObjectsOfType<UDPBehaviour>());
         objects.RemoveAll(x => x.fromExternalSource == true);
 
@@ -57,6 +57,11 @@ public class UDPManager : MonoBehaviour {
         }
 
         sendString(JsonUtility.ToJson(new JsonPackages(packages)));
+    }
+
+    void FixedUpdate()
+    {
+       
     }
 
     void DeserializeJsonMessage(string message)
@@ -217,12 +222,12 @@ public class UDPManager : MonoBehaviour {
                 byte[] data = receiverClient.Receive(ref anyIP);
 
                 // Bytes mit der UTF8-Kodierung in das Textformat kodieren.
-                string text = Encoding.Default.GetString(data);
+                string text = Encoding.UTF8.GetString(data);
                 messageReceived = text;
                 //DeserializeJsonMessage(text);
 
                 // Den abgerufenen Text anzeigen.
-               // print(">> " + text);
+                print(">> " + text);
 
                 // latest UDPpacket
              //   lastReceivedUDPPacket = text;
@@ -251,9 +256,6 @@ public class UDPManager : MonoBehaviour {
 
     // "connection" things
     IPEndPoint remoteEndPoint;
-
-    // gui
-    string strMessage = "";
 
     // sendData
     public void sendString(string message)
