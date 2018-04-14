@@ -47,8 +47,21 @@ public class Player : UDPBehaviour
         }
     }
 
-   private bool IsGrounded()
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.name.Contains("Spike"))
+        {
+            Debug.Log("collided with \"spike\"");
+        }
+    }
+
+    void OnCollisionEnter(Collision col)
+    {
+
+    }
+
+    private bool IsGrounded()
    {
-        return Physics.Raycast(transform.position, Vector3.up * gravityDirection, 1.01f);
+        return Physics.Raycast(transform.position, Vector3.up * gravityDirection, 0.501f);
    }
 }

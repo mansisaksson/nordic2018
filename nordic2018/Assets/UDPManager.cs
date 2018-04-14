@@ -61,25 +61,16 @@ public class UDPManager : MonoBehaviour {
         JsonPackage[] packages = JsonUtility.FromJson<JsonPackages>(message).jsonPackages;
         for (int i = 0; i < packages.Length; i++)
         {
-            print("id received " + packages[i].id);
-            print("ids in map " + IdToObject.Count);
-            foreach(string s in IdToObject.Keys)
-            {
-                print("\n " + s);
-            }
             UDPBehaviour obj;
-            print("A");
-                        IdToObject.TryGetValue(packages[i].id, out obj);
-            print("B");
+            IdToObject.TryGetValue(packages[i].id, out obj);
+
             if(obj != null)
             {
-            print("C");
                 // update
                 obj.Deserialize(packages[i]);
             }
             else
             {
-            print("D");
                 // create
                 UDPBehaviour newObj = Instantiate(TypeToPrefab[packages[i].type]);
                 newObj.fromExternalSource = true;
@@ -228,7 +219,7 @@ public class UDPManager : MonoBehaviour {
                 //DeserializeJsonMessage(text);
 
                 // Den abgerufenen Text anzeigen.
-                print(">> " + text);
+               // print(">> " + text);
 
                 // latest UDPpacket
              //   lastReceivedUDPPacket = text;
