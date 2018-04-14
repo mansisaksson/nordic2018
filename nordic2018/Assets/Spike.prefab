@@ -96,6 +96,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fromExternalSource: 0
+  id: 0
+  typeName: Spike
 --- !u!135 &135946265307050298
 SphereCollider:
   m_ObjectHideFlags: 1

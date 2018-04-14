@@ -34,6 +34,7 @@ public class UDPBehaviour : MonoBehaviour {
     public static int IDCOUNTER = 1;
     public bool fromExternalSource = false;
     public int id;
+    public string typeName;
 
     public void Awake() // don't overload this
     {
@@ -66,7 +67,7 @@ public class UDPBehaviour : MonoBehaviour {
             positionY = transform.position.y,
             positionZ = transform.position.z,
             id = id,
-            type = gameObject.name,
+            type = typeName,
             scaleX = transform.localScale.x,
             scaleY = transform.localScale.y,
             scaleZ = transform.localScale.z,

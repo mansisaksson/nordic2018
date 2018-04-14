@@ -52,5 +52,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabs: []
-  port: 8051
-  IP: 127.0.0.1
+  port: 1337
+  IP: 192.168.1.164
