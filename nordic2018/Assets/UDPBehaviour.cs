@@ -76,6 +76,12 @@ public class UDPBehaviour : MonoBehaviour {
             transform.localScale = newScale;
         }
         id = message.id;
+
+        if (message.type == "Spike")
+        {
+            transform.eulerAngles = new Vector3(0, 0, message.angle);
+           // print(message.angle);
+        }
     }
 
     public JsonPackage Serialize()
@@ -90,7 +96,7 @@ public class UDPBehaviour : MonoBehaviour {
             scaleX = transform.localScale.x,
             scaleY = transform.localScale.y,
             scaleZ = transform.localScale.z,
-            angle = typeName == "Spike" ? transform.localRotation.eulerAngles.z : -90
+            angle = typeName == "Spike" ? transform.localRotation.eulerAngles.z : 0
         };
     }
 }
