@@ -90,7 +90,7 @@ public class UDPBehaviour : MonoBehaviour {
             scaleX = transform.localScale.x,
             scaleY = transform.localScale.y,
             scaleZ = transform.localScale.z,
-            angle = typeName == "Spike" ? transform.localRotation.eulerAngles.x : -90
+            angle = typeName == "Spike" ? transform.localRotation.eulerAngles.z : -90
         };
     }
 }
