@@ -21,7 +21,7 @@ public class UDPManager : MonoBehaviour {
     {
         foreach(UDPBehaviour obj in prefabs)
         {
-            TypeToPrefab.Add(obj.name, obj);
+            TypeToPrefab.Add(obj.typeName, obj);
         }
         _udpManager = this;
         UDPBehaviour[] objects = FindObjectsOfType<UDPBehaviour>();

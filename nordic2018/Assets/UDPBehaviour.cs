@@ -54,12 +54,14 @@ public class UDPBehaviour : MonoBehaviour {
         newPos.z = message.positionX / -100;
         transform.position = newPos;
 
-        Vector3 newScale = Vector3.zero;
-        newScale.x = message.scaleY;
-        newScale.y = message.scaleZ;
-        newScale.z = message.scaleX;
-        transform.localScale = newScale;
-
+        if(message.type != "checkpoint")
+        {
+            Vector3 newScale = Vector3.zero;
+            newScale.x = message.scaleY;
+            newScale.y = message.scaleZ;
+            newScale.z = message.scaleX;
+            transform.localScale = newScale;
+        }
         id = message.id;
     }
 

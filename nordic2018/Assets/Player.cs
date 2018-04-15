@@ -56,9 +56,12 @@ public class Player : UDPBehaviour
         if(other.gameObject.name.Contains("CheckPoint"))
         {
             startPos = other.transform.position;
+            if (prevCheckpoint != null) prevCheckpoint.SetFloat("_Active", 0);
+            prevCheckpoint = other.gameObject.GetComponentInChildren<MeshRenderer>().material;
+            prevCheckpoint.SetFloat("_Active", 1f);
         }
     }
-
+    private Material prevCheckpoint;
     private bool IsGrounded()
    {
         return Physics.Raycast(transform.position, Vector3.up * (gravityId % 2 == 0 ? -1 : 1) , 0.501f);

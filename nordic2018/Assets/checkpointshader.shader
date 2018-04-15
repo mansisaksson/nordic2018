@@ -2,8 +2,9 @@
 	Properties {
 		_Color ("Color", Color) = (1,1,1,1)
 		_MainTex ("Albedo (RGB)", 2D) = "white" {}
-		_Glossiness ("Smoothness", Range(0,1)) = 0.5
-		_Metallic ("Metallic", Range(0,1)) = 0.0
+		_Glossiness("Smoothness", Range(0,1)) = 0.5
+		_Metallic("Metallic", Range(0,1)) = 0.0
+		_Active("Active", Int) = 0
 	}
 	SubShader {
 		Tags { "RenderType"="Opaque" }
@@ -25,6 +26,7 @@
 		half _Glossiness;
 		half _Metallic;
 		fixed4 _Color;
+		int _Active;
 
 		// Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
 		// See https://docs.unity3d.com/Manual/GPUInstancing.html for more information about instancing.
@@ -42,8 +44,14 @@
 			o.Smoothness = _Glossiness;
 			o.Alpha = c.a;
 
+			
+
 			fixed lerpVal = (sin(_Time.y*5) + 1) / 2;
-			o.Emission = lerp(fixed3(0.0, 2.0, 0.0), fixed3(0.0, 0.5, 0.0), lerpVal);
+
+			fixed3 color = lerp(fixed3(0.0, 1.7, 0.0), fixed3(0.0, 0.7, 0.0), lerpVal)*step((float)_Active, 1.0) +
+				lerp(fixed3(0.0, 0, 1.7), fixed3(0.0, 0, 0.7), lerpVal)*step(1.0, (float)_Active);
+
+			o.Emission = color;
 		}
 		ENDCG
 	}
