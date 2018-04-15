@@ -52,6 +52,11 @@ public class Player : UDPBehaviour
             //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             transform.position = startPos;
         }
+
+        if(other.gameObject.name.Contains("CheckPoint"))
+        {
+            startPos = other.transform.position;
+        }
     }
 
     private bool IsGrounded()
