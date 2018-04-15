@@ -52,6 +52,7 @@ public class UDPBehaviour : MonoBehaviour {
         if (fromExternalSource == false) return;
         if(timeSinceLastMessage > 5)
         {
+            UDPManager.instance.IdToObject.Remove(this.id);
             Destroy(gameObject);
         }
         timeSinceLastMessage += Time.deltaTime;

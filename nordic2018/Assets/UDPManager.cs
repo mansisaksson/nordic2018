@@ -13,7 +13,7 @@ public class UDPManager : MonoBehaviour {
     Dictionary<string, UDPBehaviour> TypeToPrefab = new Dictionary<string, UDPBehaviour>();
     
 
-    Dictionary<int, UDPBehaviour> IdToObject = new Dictionary<int, UDPBehaviour>();
+    public Dictionary<int, UDPBehaviour> IdToObject = new Dictionary<int, UDPBehaviour>();
     //Dictionary<UDPBehaviour, string> ObjectToId = new Dictionary<UDPBehaviour, string>();
 
     // start from unity3d
@@ -175,7 +175,7 @@ public class UDPManager : MonoBehaviour {
         senderClient = new UdpClient();
         senderClient.Client.SendTimeout = 50;
         senderClient.Client.Blocking = false;
-        senderClient.Client.SendBufferSize = 1048576;
+        senderClient.Client.SendBufferSize = 16384;
         // status
         print("Sending to " + IP + " : " + port);
 
@@ -195,7 +195,7 @@ public class UDPManager : MonoBehaviour {
     {
 
         receiverClient = new UdpClient(port);
-        receiverClient.Client.SendBufferSize = 1048576;
+        receiverClient.Client.SendBufferSize = 16384;
       //  receiverClient.Client.ReceiveTimeout =1000;
       // receiverClient.Client.Blocking = false;
         while (true)
