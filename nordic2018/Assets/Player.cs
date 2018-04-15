@@ -29,7 +29,7 @@ public class Player : UDPBehaviour
 
 
             //invert gravity, only if grounded
-            if (Input.GetKeyDown("space") && IsGrounded())
+            if (Input.GetAxis("Jump") > 0.2 && IsGrounded())
                 //gravityDirection *= -1;
                 gravityId++;
         }

@@ -40,14 +40,26 @@ public class UDPBehaviour : MonoBehaviour {
     public int id;
     public string typeName;
 
+    public float timeSinceLastMessage = 0;
+
     public void Awake() // don't overload this
     {
         id = IDCOUNTER++;
     }
 
+    public void LateUpdate()
+    {
+        if (fromExternalSource == false) return;
+        if(timeSinceLastMessage > 5)
+        {
+            Destroy(gameObject);
+        }
+        timeSinceLastMessage += Time.deltaTime;
+    }
 
     public virtual void Deserialize(JsonPackage message)
     {
+        timeSinceLastMessage = 0;
         Vector3 newPos = Vector3.zero;
         newPos.x = message.positionY / 100;
         newPos.y = message.positionZ / 100;

@@ -175,6 +175,7 @@ public class UDPManager : MonoBehaviour {
         senderClient = new UdpClient();
         senderClient.Client.SendTimeout = 50;
         senderClient.Client.Blocking = false;
+        senderClient.Client.SendBufferSize = 1048576;
         // status
         print("Sending to " + IP + " : " + port);
 
@@ -194,8 +195,9 @@ public class UDPManager : MonoBehaviour {
     {
 
         receiverClient = new UdpClient(port);
+        receiverClient.Client.SendBufferSize = 1048576;
       //  receiverClient.Client.ReceiveTimeout =1000;
-       // receiverClient.Client.Blocking = false;
+      // receiverClient.Client.Blocking = false;
         while (true)
         {
 
@@ -254,7 +256,7 @@ public class UDPManager : MonoBehaviour {
         }
         catch (Exception err)
         {
-            print(err.ToString());
+           // print(err.ToString());
         }
     }
 
