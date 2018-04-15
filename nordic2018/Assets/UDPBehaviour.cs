@@ -76,6 +76,12 @@ public class UDPBehaviour : MonoBehaviour {
             transform.localScale = newScale;
         }
         id = message.id;
+
+        if (message.type == "Spike")
+        {
+            transform.eulerAngles = new Vector3(0, 0, message.angle);
+           // print(message.angle);
+        }
     }
 
     public JsonPackage Serialize()
